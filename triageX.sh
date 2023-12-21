@@ -251,7 +251,7 @@ function copyFolder(){
     tar --exclude=$basedir -cvzf home.tar.gz /home
     tar -cvzf root.tar.gz /root 
     tar -cvzf logs.tar.gz /var/log
-    mv *.gz triageX_$hostname_$day
+    mv *.gz $basedir
     echo "COPY AND COMPRESSING FOLDERS... DONE!" | tee -a $basedir/triageX.txt
 }
 
