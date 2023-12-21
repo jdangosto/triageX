@@ -22,7 +22,8 @@ AVML must be in the same directory as the triageX.sh script
 
 # Usage
 To use it you just have to change the execution permissions to the script:
-chmod +x triageX.sh
+- chmod +x triageX.sh
+- chmod +x avml
 
 The script must be excute as root.
 
