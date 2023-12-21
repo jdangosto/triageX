@@ -17,7 +17,7 @@ Make a compressed copy of the directories:
 Easily customizable to your needs.
 
 Microsoft AVML is used to capture memory, which you can download from here:
-https://github.com/microsoft/avml/releases/download/v0.13.0/avml
+- https://github.com/microsoft/avml/releases/download/v0.13.0/avml
 AVML must be in the same directory as the triageX.sh script
 
 # Usage
