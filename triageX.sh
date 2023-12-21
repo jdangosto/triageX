@@ -323,7 +323,7 @@ function main(){
     echo " "
     #Collect Linux Memory Image using Microsoft's AVML tool.
     echo "COLLECTING MEMORY IMAGE WITH MICROSOFT'S AVML...PLEASE WAIT" | tee -a $basedir/triageX.txt
-    #./avml $basedir/memory.mem
+    ./avml $basedir/memory.mem
     sleep 2
     echo "COLLECTING MEMORY IMAGEN...DONE!!!" | tee -a $basedir/triageX.txt
     sleep 2
