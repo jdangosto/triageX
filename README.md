@@ -1,1 +1,29 @@
-# triageX
+# TriageX - Linux Triage Tool
+Is a BASH shell script designed to give system administrators and incident responders a simple and easy to use tool for LIVE Linux machines. The script uses native commands to most Unix/Linux distributions to help establish a baseline of "normalcy" for the system.
+
+TriageX generates a timeline in csv so that it can be parsed in any editor for analysis, gathers useful information about the system:
+- Operating system information and statistics.
+- Specific hardware information.
+- Networking, Firewall, ARP, configurations and statistics.
+- List of running processes.
+- List of users, groups, and privileges.
+- Gets a list of packages installed on the system (currently deb and rpm).
+- Complete list of directories and files of the entire Linux system directory tree.
+
+Make a compressed copy of the directories:
+- home
+- root
+- var/log
+Easily customizable to your needs.
+
+Microsoft AVML is used to capture memory, which you can download from here:
+https://github.com/microsoft/avml/releases/download/v0.13.0/avml
+AVML must be in the same directory as the triageX.sh script
+
+# Usage
+To use it you just have to change the execution permissions to the script:
+chmod +x triageX.sh
+
+The script must be excute as root.
+
+Once finished, you will obtain a directory with the name of the machine and the date/time of execution, inside you will find all the acquisition carried out for your investigation.
