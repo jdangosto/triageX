@@ -14,6 +14,7 @@ Make a compressed copy of the directories:
 - home
 - root
 - var/log
+
 Easily customizable to your needs.
 
 Microsoft AVML is used to capture memory, which you can download from here:
