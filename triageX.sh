@@ -49,16 +49,6 @@ echo -ne "
 " | tee -a $basedir/triageX.txt
 }
 
-function getHashes(){
-   echo "**************************************************************************************" | tee -a $basedir/hashes.txt
-   echo "MD5 Hashes" | tee -a $basedir/hashes.txt
-   echo "**************************************************************************************" | tee -a $basedir/hashes.txt
-   echo "SHA1 Hashes" | tee -a $basedir/hashes.txt
-   echo "**************************************************************************************" | tee -a $basedir/hashes.txt
-   echo "SHA256 hashes" | tee -a $basedir/triageX.txt
-   sleep 2
-}
-
 function systemInformation(){
 echo -e "COLLECTING SYSTEM INFORMATION..." | tee -a $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
