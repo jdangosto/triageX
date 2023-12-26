@@ -50,89 +50,143 @@ echo -ne "
 }
 
 function systemInformation(){
-echo -e "COLLECTING SYSTEM INFORMATION..." | tee -a $basedir/system_info.txt
+echo -e "[ COLLECTING SYSTEM INFORMATION... ] " | tee -a $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "Host name of machine:" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ HOST NAME ]" >> $basedir/system_info.txt
+echo -e "-------------" >> $basedir/system_info.txt
 hostnamectl >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "Linux version and kernel information:" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ LINUX VERSION AND KERNEL ]" >> $basedir/system_info.txt
+echo -e "----------------------------" >> $basedir/system_info.txt
 uname -a >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "System date/time/timezone:" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ SYSTEM DATE / TIME / TIMEZONE ]" >> $basedir/system_info.txt
+echo -e "--------------------------------- " >> $basedir/system_info.txt
 timedatectl >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo "Uptime:" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ UPTIME ]" >> $basedir/system_info.txt
+echo -e "----------" >> $basedir/system_info.txt
 uptime >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "System memory information:" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ MEMORY INFORMATION ]" >> $basedir/system_info.txt
+echo -e "----------------------" >> $basedir/system_info.txt
 free >> $basedir/system_info.txt
 echo -e "**************************************************************************************" >> $basedir/system_info.txt
 cat /proc/meminfo >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "Last Information:" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ LAST INFORMATION ]" >> $basedir/system_info.txt
+echo -e "-------------------- " >> $basedir/system_info.txt
 last reboot >> $basedir/system_info.txt
 echo -e "**************************************************************************************" >> $basedir/system_info.txt
-echo "[LASTB INFO: FAILED ATTEMPTS]" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ LASTB INFO: FAILED ATTEMPTS ]" >> $basedir/system_info.txt
+echo -e "------------------------------- " >> $basedir/system_info.txt
 lastb >> $basedir/system_info.txt
 echo -e "**************************************************************************************" >> $basedir/system_info.txt
-echo "[FILES WITH SPECIFIC ACLS]" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ FILES WITH SPECIFIC ACLS ]" >> $basedir/system_info.txt
+echo -e "---------------------------- " >> $basedir/system_info.txt
 getfacl -R -s -p /raiz >> $basedir/system_info.txt
 echo -e "***************************************************************************************" >> $basedir/system_info.txt
-echo "[USERS LAST LOGIN]" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ USERS LAST LOGIN ]" >> $basedir/system_info.txt
+echo -e "-------------------- " >> $basedir/system_info.txt
 lastlog >> $basedir/system_info.txt
 echo -e "***************************************************************************************" >> $basedir/system_info.txt
-echo "[LAST INFO]" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[LAST INFO]" >> $basedir/system_info.txt
+echo -e "----------- " >> $basedir/system_info.txt
 last -xFa >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "Users currently logged on:" >> $basedir/system_info.txt
-who -H >> $basedir/system_info.txt
-echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "Last system boot time:" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ LAST SYSTEM BOOT TIME ]" >> $basedir/system_info.txt
+echo -e "------------------------- " >> $basedir/system_info.txt
 who -b >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "ACCOUNTS" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ USERS CURRENTLY LOGGED ON ]" >> $basedir/system_info.txt
+echo -e "----------------------------- "
+who -H >> $basedir/system_info.txt
+echo -e "======================================================================================" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ ACCOUNTS ]" >> $basedir/system_info.txt
+echo -e "------------ " >> $basedir/system_info.txt
 cat /etc/passwd >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "GROUPS" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ GROUPS] " >> $basedir/system_info.txt
+echo -e "--------- " >> $basedir/system_info.txt
 cat /etc/group >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "SUDOERS" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ SUDOERS ]" >> $basedir/system_info.txt
+echo -e "----------- " >> $basedir/system_info.txt
 cat /etc/sudoers >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo "Scheduled jobs [crontab]" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ CRONTAB ] - Schedule jobs" >> $basedir/system_info.txt
+echo -e "--------------------------- " >> $basedir/system_info.txt
 cat /etc/crontab >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "Systemd timers" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ SYSTEMD TIMERS ]" >> $basedir/system_info.txt
+echo -e "------------------ " >> $basedir/system_info.txt
 systemctl status *timer >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "ALL scheduled jobs" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ ALL ] scheduled jobs" >> $basedir/system_info.txt
+echo -e "----------------------- " >> $basedir/system_info.txt
 cat /etc/*.d >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "CPU's properties and architecture" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ CPU's ]" >> $basedir/system_info.txt
+echo -e "--------- " >> $basedir/system_info.txt
 lscpu >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "Block devices" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ BLOCK DEVICES ]" >> $basedir/system_info.txt
+echo -e "----------------- " >> $basedir/system_info.txt
 lsblk -a >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "USB Devices" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ USB DEVICES ]" >> $basedir/system_info.txt
+echo -e "--------------- " >> $basedir/system_info.txt
 lsusb -v >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "PCI devices" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ PCI DEVICES ]" >> $basedir/system_info.txt
+echo -e "--------------- " >> $basedir/system_info.txt
 lspci -v >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "SCSI devices" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ SCSI DEVICES ]" >> $basedir/system_info.txt
+echo -e "---------------- " >> $basedir/system_info.txt
 lsscsi -s >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "Hard drives" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ HARD DRIVES ]" >> $basedir/system_info.txt
+echo -e "--------------- " >> $basedir/system_info.txt
 fdisk -l >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "Mountable partitions" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ MOUNTABLE PARTITIONS ]" >> $basedir/system_info.txt
+echo -e "------------------------ " >> $basedir/system_info.txt
 blkid >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "Mounted file systems and space" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ MOUNTED FILE SYSTEMS AND DISK SPACE ]" >> $basedir/system_info.txt
+echo -e "--------------------------------------- " >> $basedir/system_info.txt
 df -h >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
-echo -e "List of ALL mount points on the machine:" >> $basedir/system_info.txt
+echo -e " " >> $basedir/system_info.txt
+echo -e "[ ALL MOUNT POINTS ]" >> $basedir/system_info.txt
+echo -e "-------------------- " >> $basedir/system_info.txt
 cat /proc/mounts >> $basedir/system_info.txt
 echo -e "======================================================================================" >> $basedir/system_info.txt
 echo "COLLECTING SYSTEM INFORMATION... DONE!" | tee -a $basedir/system_info.txt
@@ -144,27 +198,39 @@ function getProcess(){
     echo "COLLECTING LIST OF PROCESSES..." >> $basedir/process.txt
     echo "======================================================================================" >> $basedir/process.txt
     echo -e "Running processes with PID" >> $basedir/process.txt
+    echo -e "--------------------------" >> $basedir/process.txt
     pstree -p -n >> $basedir/process.txt
     echo -e "======================================================================================" >> $basedir/process.txt
     echo -e "Running processes - tree format" >> $basedir/process.txt
+    echo -e "-------------------------------" >> $basedir/process.txt
     pstree -a >> $basedir/process.txt
     echo -e "======================================================================================" >> $basedir/process.txt
     echo -e "Running processes:" >> $basedir/process.txt
+    echo -e "------------------" >> $basedir/process.txt
     ps -axu | tee -a $basedir/process.txt
     echo -e "======================================================================================" >> $basedir/process.txt
-    echo -e "Running from /tmp or /dev directory:" >> $basedir/process.txt
+    echo -e "Running from /tmp or /dev directory" >> $basedir/process.txt
+    echo -e "------------------------------------" >> $basedir/process.txt
     ls -alR /proc/*/cwd 2> /dev/null | grep -E "tmp|dev" >> $basedir/process.txt
     echo -e "======================================================================================" >> $basedir/process.txt
-    echo -e "Deleted binaries still running:"
+    echo -e "Deleted binaries still running"
+    echo -e "------------------------------" >> $basedir/process.txt
     ls -alR /proc/*/exe 2> /dev/null | grep deleted >> $basedir/process.txt
     echo -e "======================================================================================" >> $basedir/process.txt
-    echo -e "Startup services at boot:" >> $basedir/process.txt
+    echo -e "Startup services at boot" >> $basedir/process.txt
+    echo -e "--------------------------" >> $basedir/process.txt
     systemctl list-unit-files --type=service >> $basedir/process.txt
     echo -e "======================================================================================" >> $basedir/process.txt
-    echo -e "List of services and their status:" >> $basedir/process.txt
+    echo -e "List of services and their status" >> $basedir/process.txt
+    echo -e "---------------------------------" >> $basedir/process.txt
     echo -e "Services" >> $basedir/process.txt
+    echo -e "--------------------------" >> $basedir/process.txt
     service --status-all >> $basedir/process.txt
     echo -e "======================================================================================" >> $basedir/process.txt
+    echo -e "Open files on the system and the process ID that opened them" >> $basedir/process.txt
+    echo -e "------------------------------------------------------------" >> $basedir/process.txt
+    lsof >> $basedir/process.txt
+    echo -e "======================================================================================" >> $basedir/network_info.txt
     echo "COLLECTING LIST OF PROCESSES... DONE!" >> $basedir/triageX.txt
     echo "**************************************************************************************" >> $basedir/process.txt
 }
@@ -190,9 +256,6 @@ function getNetwork(){
     echo -e "======================================================================================" >> $basedir/network_info.txt
     echo "[iptables -nL -t mangle] " >> network_info.txt
     iptables -nL -t mangle >> network_info.txt
-    echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo -e "Open files on the system and the process ID that opened them:" >> $basedir/network_info.txt
-    lsof >> $basedir/network_info.txt
     echo -e "======================================================================================" >> $basedir/network_info.txt
     echo -e "Network connections:" >> $basedir/network_info.txt
     netstat -a >> $basedir/network_info.txt
