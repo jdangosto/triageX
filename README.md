@@ -1,5 +1,5 @@
 # TriageX - Linux Triage Tool
-Is a BASH shell script designed to give system administrators and incident responders a simple and easy to use tool for LIVE Linux machines. The script uses native commands to most Unix/Linux distributions to help establish a baseline of "normalcy" for the system.
+Is a BASH shell script designed to collect evidences in an incident with Linux machines. The script uses native Linux commands to run.
 
 The ideal would be to use the script on an external drive since it writes certain files and the memory file.
 
