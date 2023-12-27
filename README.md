@@ -34,3 +34,7 @@ To use it you just have to change the execution permissions to the script:
 The script must be excute as root.
 
 Once finished, you will obtain a directory with the name of the machine and the date/time of execution, inside you will find all the acquisition carried out for your investigation.
+
+# Important
+
+If you run triageX from the computer itself, make sure you have enough space on the computer to store the files, and if you run it with AVML the memory acquisition will take up a little more space than the memory installed on the computer.
