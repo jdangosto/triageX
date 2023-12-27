@@ -37,4 +37,4 @@ Once finished, you will obtain a directory with the name of the machine and the 
 
 # Important
 
-If you run triageX from the computer itself, make sure you have enough space on the computer to store the files, and if you run it with AVML the memory acquisition will take up a little more space than the memory installed on the computer.
+If you run triageX from the computer itself, make sure you have enough space on the computer to store the files, and if you run it with AVML the memory acquisition will take up almost the same space than the memory installed on the computer plus the adquisition files.
