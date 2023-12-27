@@ -257,15 +257,15 @@ function getNetwork(){
     echo -e "======================================================================================" >> $basedir/network_info.txt
     echo -e >> $basedir/firewall_info.txt
     echo "[ IPTABLES -nL] " >> firewall_info.txt
-    iptables -nL >> firewall_info.txt
+    iptables -nL >> $basedir/firewall_info.txt
     echo -e "======================================================================================" >> $basedir/network_info.txt
     echo -e >> $basedir/firewall_info.txt
     echo -e "[ IPTABLES -nL -t nat] " >> firewall_info.txt
-    iptables -nL -t nat >> firewall_info.txt
+    iptables -nL -t nat >> $basedir/firewall_info.txt
     echo -e "======================================================================================" >> $basedir/network_info.txt
     echo -e >> $basedir/firewall_info.txt
-    echo "[ IPTABLES -nL -t mangle] " >> iptables_info.txt
-    iptables -nL -t mangle >> iptables_info.txt
+    echo "[ IPTABLES -nL -t mangle] " >> $basedir/iptables_info.txt
+    iptables -nL -t mangle >> $basedir/iptables_info.txt
     echo -e "======================================================================================" >> $basedir/network_info.txt
     echo -e >> $basedir/network_info.txt
     echo -e "[ NETWORK CONNECTIONS ]" >> $basedir/network_info.txt
@@ -367,23 +367,14 @@ function getPackages(){
         apt-key list >> $basedir/gpg_file.txt
         echo -e "======================================================================================" >> $basedir/packages_info.txt
     elif command -v rpm &> /dev/null; then
-         # Comprobar si rpm (Red Hat, Fedora, SUSE) está instalado
-        rpm --version > /dev/null 2>/dev/null
-        echo -e "[rpm -qa last] No chroot!!" >> $basedir/gpg_file.txt
-        rpm -qa --last >> $basedir/gpg_file.txt
-        echo -e "======================================================================================" >> $basedir/packages_info.txt
-        echo -e "[rpm -Va] No chroot!!" >> $basedir/gpg_file.txt
-        rpm -Va >> $basedir/gpg_file.txt
-        echo -e "======================================================================================" >> $basedir/packages_info.txt
-        echo "[rpm -q gpg-pubkey --qf '%{name}-%{version}-%{release} --> %{summary}] No chroot!!'" >> $basedir/gpg_file.txt
-        rpm -q gpg-pubkey --qf '%{name}-%{version}-%{release} --> %{summary}\n' >> $basedir/gpg_file.txt
-        echo -e "======================================================================================" >> $basedir/packages_info.txt
-        echo "[Obteniendo listado de paquetes firmados y su KeyID - No chroot!!'" >> $basedir/gpg_file.txt
-        rpm -qa --qf "%|DSAHEADER?{%{DSAHEADER:pgpsig}}:{%|RSAHEADER?{%{RSAHEADER:pgpsig}}:{(none}|}| %{NVRA}\n" | grep -v gpg-pubkey >> $basedir/gpg_file.txt
-        echo -e "======================================================================================" >> $basedir/packages_info.txt
-        echo "[Obteniendo listado de paquetes NO firmados - No chroot!!'" >> $basedir/gpg_file.txt
-        rpm -qa --qf "%|DSAHEADER?{%{DSAHEADER:pgpsig}}:{%|RSAHEADER?{%{RSAHEADER:pgpsig}}:{(none}|}| %{NVRA}\n" |grep -v gpg-pubkey | grep none >> $basedir/gpg_file.txt
-        echo -e "======================================================================================" >> $basedir/packages_info.txt
+       elif command -v rpm &> /dev/null; then
+       rpm --version >> packages_info.txt
+       echo -e "[ RPM -qa --last] No chroot!!" >> packages_info.txt
+       rpm -qa --last >> packages_info.txt
+       rpm -Va >> packages_info.txt
+       echo "[rpm -q gpg-pubkey --qf '%{name}-%{version}-%{release} --> %{summary}] No chroot!!'" >> packages_info.txt
+       rpm -q gpg-pubkey --qf '%{name}-%{version}-%{release} --> %{summary}\n' >> packages_info.txt
+       rpm -qa >> packages_info.txt
     else
             echo "Tipo de paquete desconocido o no soportado" >> $basedir/packages_info.txt
     fi
