@@ -23,12 +23,11 @@ echo -ne "
 ##################################################### 
 #                      TRIAGEX                      #
 #                   --------------                  #	
-#       Linux TimeLine & Forensic Triage Tool       #
-#                 BETA Version 0.1                  #
+#            Triage Tool for *NIX System            #
+#                    BETA Version                   #
 #---------------------------------------------------#
 #           Author: Jesus D. Angosto                #
 #                    @jdangosto                     #
-#                   GNU GPL v 3.0                   #
 ##################################################### 
 " | tee -a $basedir/triageX.txt
 sleep 5
@@ -39,12 +38,11 @@ echo -ne "
 ##################################################### 
 #                      TRIAGEX                      #
 #                   --------------                  #	
-#       Linux TimeLine & Forensic Triage Tool       #
-#                 BETA Version 0.1                  #
+#            Triage Tool for *NIX System            #
+#                   BETA Version                    #
 #---------------------------------------------------#
 #                   ALL TASK DONE!!!                #
 #             GOOD LUCK IN YOUR RESEARCH            #
-#                          :)                       #
 ##################################################### 
 " | tee -a $basedir/triageX.txt
 }
@@ -197,37 +195,44 @@ function getProcess(){
     echo "**************************************************************************************" >> $basedir/process.txt
     echo "COLLECTING LIST OF PROCESSES..." >> $basedir/process.txt
     echo "======================================================================================" >> $basedir/process.txt
-    echo -e "Running processes with PID" >> $basedir/process.txt
+    echo -e " " >> $basedir/process.txt
+    echo -e "[ RUNNING PROCESS WITH PID ]" >> $basedir/process.txt
     echo -e "--------------------------" >> $basedir/process.txt
     pstree -p -n >> $basedir/process.txt
     echo -e "======================================================================================" >> $basedir/process.txt
-    echo -e "Running processes - tree format" >> $basedir/process.txt
+    echo -e >> $basedir/process.txt
+    echo -e "[ PROCESS TREE FORMAT ]" >> $basedir/process.txt
     echo -e "-------------------------------" >> $basedir/process.txt
     pstree -a >> $basedir/process.txt
     echo -e "======================================================================================" >> $basedir/process.txt
-    echo -e "Running processes:" >> $basedir/process.txt
+    echo -e >> $basedir/process.txt
+    echo -e "[ RUNNING PROCESSES ] " >> $basedir/process.txt
     echo -e "------------------" >> $basedir/process.txt
     ps -axu | tee -a $basedir/process.txt
     echo -e "======================================================================================" >> $basedir/process.txt
-    echo -e "Running from /tmp or /dev directory" >> $basedir/process.txt
+    echo -e >> $basedir/process.txt
+    echo -e " [ RUNNING FROM /tmp or /dev DIRECTORY ]" >> $basedir/process.txt
     echo -e "------------------------------------" >> $basedir/process.txt
     ls -alR /proc/*/cwd 2> /dev/null | grep -E "tmp|dev" >> $basedir/process.txt
     echo -e "======================================================================================" >> $basedir/process.txt
-    echo -e "Deleted binaries still running"
+    echo -e >> $basedir/process.txt
+    echo -e "[ DELECTED BINARIES STILL RUNNING ]"
     echo -e "------------------------------" >> $basedir/process.txt
     ls -alR /proc/*/exe 2> /dev/null | grep deleted >> $basedir/process.txt
     echo -e "======================================================================================" >> $basedir/process.txt
-    echo -e "Startup services at boot" >> $basedir/process.txt
+    echo -e >> $basedir/process.txt
+    echo -e "STARTUP SERVICES AT BOOT ]" >> $basedir/process.txt
     echo -e "--------------------------" >> $basedir/process.txt
     systemctl list-unit-files --type=service >> $basedir/process.txt
     echo -e "======================================================================================" >> $basedir/process.txt
-    echo -e "List of services and their status" >> $basedir/process.txt
+    echo -e >> $basedir/process.txt
+    echo -e "[ SERVICES AND THEIR STATUS ]" >> $basedir/process.txt
     echo -e "---------------------------------" >> $basedir/process.txt
-    echo -e "Services" >> $basedir/process.txt
+    echo -e " [ ALL Services ]" >> $basedir/process.txt
     echo -e "--------------------------" >> $basedir/process.txt
     service --status-all >> $basedir/process.txt
     echo -e "======================================================================================" >> $basedir/process.txt
-    echo -e "Open files on the system and the process ID that opened them" >> $basedir/process.txt
+    echo -e "[ OPEN FILES ON THE SYSTEM AND THE PROCESS ID that opened them" >> $basedir/process.txt
     echo -e "------------------------------------------------------------" >> $basedir/process.txt
     lsof >> $basedir/process.txt
     echo -e "======================================================================================" >> $basedir/network_info.txt
@@ -238,41 +243,48 @@ function getProcess(){
 function getNetwork(){
     echo "COLLECTING NETWORK INFORMATION..." | tee -a $basedir/network_info.txt
     echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo -e "List of network devices:" >> $basedir/network_info.txt
+    echo -e >> $basedir/process.txt
+    echo -e "[ NETWORK DEVICES ]" >> $basedir/network_info.txt
     ip -a >> $basedir/network_info.txt
     echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo -e "List of UFW ('uncomplicated firewall') rules" >> $basedir/network_info.txt
-    echo -e "ufw status verbose" >> $basedir/network_info.txt
-    ufw status verbose >> $basedir/network_info.txt
+    echo -e "[ UFW ('uncomplicated firewall') ]" >> $basedir/firewall_info.txt
+    echo -e "ufw status verbose" >> $basedir/firewall_info.txt
+    ufw status verbose >> $basedir/firewall_info.txt
     echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo -e "Iptables" >> $basedir/network_info.txt
-    iptables -L | tee -a $basedir/network_info.txt
+    echo -e >> $basedir/firewall_info.txt
+    echo -e "[ IPTABLES ]" >> $basedir/firewall_info.txt
+    iptables -L | tee -a $basedir/firewall_info.txt
     echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo "[iptables -nL] " >> network_info.txt
-    iptables -nL >> network_info.txt
+    echo -e >> $basedir/firewall_info.txt
+    echo "[ IPTABLES -nL] " >> firewall_info.txt
+    iptables -nL >> firewall_info.txt
     echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo -e "[iptables -nL -t nat] " >> network_info.txt
-    iptables -nL -t nat >> network_info.txt
+    echo -e >> $basedir/firewall_info.txt
+    echo -e "[ IPTABLES -nL -t nat] " >> firewall_info.txt
+    iptables -nL -t nat >> firewall_info.txt
     echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo "[iptables -nL -t mangle] " >> network_info.txt
-    iptables -nL -t mangle >> network_info.txt
+    echo -e >> $basedir/firewall_info.txt
+    echo "[ IPTABLES -nL -t mangle] " >> iptables_info.txt
+    iptables -nL -t mangle >> iptables_info.txt
     echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo -e "Network connections:" >> $basedir/network_info.txt
+    echo -e >> $basedir/network_info.txt
+    echo -e "[ NETWORK CONNECTIONS ]" >> $basedir/network_info.txt
     netstat -a >> $basedir/network_info.txt
     echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo -e "Network interfaces:" >> $basedir/network_info.txt
+     echo -e >> $basedir/network_info.txt
+    echo -e "[ NETWORK INTERFACES ]" >> $basedir/network_info.txt
     netstat -i >> $basedir/network_info.txt
     echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo -e "Network routing table:" >> $basedir/network_info.txt
+     echo -e >> $basedir/network_info.txt
+    echo -e "[NETWORK ROUTING TABLE ]" >> $basedir/network_info.txt
     netstat -r >> $basedir/network_info.txt
     echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo -e "Network connections:" >> $basedir/network_info.txt
-    netstat -nalp >> $basedir/network_info.txt
-    echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo -e "Network Connections:" >> $basedir/network_info.txt
+     echo -e >> $basedir/network_info.txt
+    echo -e "[ NETWORK CONNECTIONS ]" >> $basedir/network_info.txt
     netstat -plant >> $basedir/network_info.txt
     echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo -e "ARP table cache (Address Resolution Protocol)" >> $basedir/network_info.txt
+    echo -e >> $basedir/network_info.txt
+    echo -e "[ ARP table ] ">> $basedir/network_info.txt
     arp -a >> $basedir/network_info.txt
     echo -e "======================================================================================" >> $basedir/network_info.txt
     echo "COLLECTING NETWORK INFORMATION... DONE!" | tee -a $basedir/triageX.txt
@@ -282,20 +294,31 @@ function getDirectoryAndFiles(){
     
     echo "CREATING DIRECTORY LISTING OF FILES..." | tee -a $basedir/triageX.txt
     echo -e "======================================================================================" >> $basedir/directory_and_files.txt
-    echo -e "FULL DIRECTORY LISTING: " >> $basedir/directory_and_files.txt
+    echo -e " " >> $basedir/directory_and_files.txt
+    echo -e "[ FULL DIRECTORY LISTING ] " >> $basedir/directory_and_files.txt
     ls -l -A -h -R / | tee -a  $basedir/directory_and_files.txt
+    echo -e " " >> $basedir/directory_and_files.txt
     echo -e "======================================================================================" >> $basedir/directory_and_files.txt
-    echo -e "ALL hidden directories" >> $basedir/directory_and_files.txt
+    echo -e " " >> $basedir/directory_and_files.txt
+    echo -e " [ ALL HIDDEN DIRECTORIES ]" >> $basedir/directory_and_files.txt
     find / -type d -name "\.*" >> $basedir/directory_and_files.txt
+    echo -e " " >> $basedir/directory_and_files.txt
     echo -e "======================================================================================" >> $basedir/directory_and_files.txt
+    echo -e " " >> $basedir/directory_and_files.txt
     echo -e "Files/directories with no user/group name:" >> $basedir/directory_and_files.txt
     find / \( -nouser -o -nogroup \) -exec ls -l {} \; 2>/dev/null >> $basedir/directory_and_files.txt
+    echo -e " " >> $basedir/directory_and_files.txt
     echo -e "======================================================================================" >> $basedir/directory_and_files.txt
+    echo -e " " >> $basedir/directory_and_files.txt
     echo -e "MD5 hash for all executable files" >> $basedir/directory_and_files.txt
     find /usr/bin -type f -exec file "{}" \; | grep -i "elf" | cut -f1 -d: | xargs -I "{}" -n 1 md5sum {} >> $basedir/directory_and_files.txt
+    echo -e " " >> $basedir/directory_and_files.txt
     echo -e "======================================================================================" >> $basedir/directory_and_files.txt
+    echo -e " " >> $basedir/directory_and_files.txt
     echo -e "ALL log files that contain binary code inside" >> $basedir/directory_and_files.txt
     grep [[:cntrl:]] /var/log/*.txt >> $basedir/system_info.txt
+    echo -e " " >> $basedir/directory_and_files.txt
+    echo -e "======================================================================================" >> $basedir/directory_and_files.txt
     echo "CREATING DIRECTORY LISTING OF FILES... DONE!" | tee -a $basedir/system_info.txt
 }
 
