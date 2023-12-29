@@ -1,3 +1,6 @@
+![image](https://github.com/jdangosto/triageX/assets/20812848/db287c23-69da-486f-86ea-e479baf21420)
+
+
 # TriageX - Linux Triage Tool
 Is a BASH shell script designed to collect evidences in an incident with Linux machines. The script uses native Linux commands to run.
 
