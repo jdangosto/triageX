@@ -367,7 +367,6 @@ function getPackages(){
         apt-key list >> $basedir/gpg_file.txt
         echo -e "======================================================================================" >> $basedir/packages_info.txt
     elif command -v rpm &> /dev/null; then
-       elif command -v rpm &> /dev/null; then
        rpm --version >> packages_info.txt
        echo -e "[ RPM -qa --last] No chroot!!" >> packages_info.txt
        rpm -qa --last >> packages_info.txt
