@@ -241,53 +241,65 @@ function getProcess(){
 }
 
 function getNetwork(){
-    echo "COLLECTING NETWORK INFORMATION..." | tee -a $basedir/network_info.txt
-    echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo -e >> $basedir/process.txt
-    echo -e "[ NETWORK DEVICES ]" >> $basedir/network_info.txt
-    ip -a >> $basedir/network_info.txt
-    echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo -e "[ UFW ('uncomplicated firewall') ]" >> $basedir/firewall_info.txt
-    echo -e "ufw status verbose" >> $basedir/firewall_info.txt
-    ufw status verbose >> $basedir/firewall_info.txt
-    echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo -e >> $basedir/firewall_info.txt
-    echo -e "[ IPTABLES ]" >> $basedir/firewall_info.txt
-    iptables -L | tee -a $basedir/firewall_info.txt
-    echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo -e >> $basedir/firewall_info.txt
-    echo "[ IPTABLES -nL] " >> firewall_info.txt
-    iptables -nL >> $basedir/firewall_info.txt
-    echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo -e >> $basedir/firewall_info.txt
-    echo -e "[ IPTABLES -nL -t nat] " >> firewall_info.txt
-    iptables -nL -t nat >> $basedir/firewall_info.txt
-    echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo -e >> $basedir/firewall_info.txt
-    echo "[ IPTABLES -nL -t mangle] " >> $basedir/iptables_info.txt
-    iptables -nL -t mangle >> $basedir/iptables_info.txt
-    echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo -e >> $basedir/network_info.txt
-    echo -e "[ NETWORK CONNECTIONS ]" >> $basedir/network_info.txt
-    netstat -a >> $basedir/network_info.txt
-    echo -e "======================================================================================" >> $basedir/network_info.txt
-     echo -e >> $basedir/network_info.txt
-    echo -e "[ NETWORK INTERFACES ]" >> $basedir/network_info.txt
-    netstat -i >> $basedir/network_info.txt
-    echo -e "======================================================================================" >> $basedir/network_info.txt
-     echo -e >> $basedir/network_info.txt
-    echo -e "[NETWORK ROUTING TABLE ]" >> $basedir/network_info.txt
-    netstat -r >> $basedir/network_info.txt
-    echo -e "======================================================================================" >> $basedir/network_info.txt
-     echo -e >> $basedir/network_info.txt
-    echo -e "[ NETWORK CONNECTIONS ]" >> $basedir/network_info.txt
-    netstat -plant >> $basedir/network_info.txt
-    echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo -e >> $basedir/network_info.txt
-    echo -e "[ ARP table ] ">> $basedir/network_info.txt
-    arp -a >> $basedir/network_info.txt
-    echo -e "======================================================================================" >> $basedir/network_info.txt
-    echo "COLLECTING NETWORK INFORMATION... DONE!" | tee -a $basedir/triageX.txt
+    echo "COLLECTING NETWORK INFORMATION..." | tee -a "$basedir/network_info.txt"
+    echo -e "======================================================================================" >> "$basedir/network_info.txt"
+    echo -e >> "$basedir/process.txt"
+    
+    echo -e "[ NETWORK DEVICES ]" >> "$basedir/network_info.txt"
+    ip addr show >> "$basedir/network_info.txt"
+    echo -e "======================================================================================" >> "$basedir/network_info.txt"
+    
+    if command -v ufw >/dev/null 2>&1; then
+        echo -e "[ UFW ('uncomplicated firewall') ]" >> "$basedir/firewall_info.txt"
+        ufw status verbose >> "$basedir/firewall_info.txt"
+    else
+        echo -e "[ IPTABLES (Alternative to UFW) ]" >> "$basedir/firewall_info.txt"
+        iptables -L >> "$basedir/firewall_info.txt"
+    fi
+    echo -e "======================================================================================" >> "$basedir/firewall_info.txt"
+    
+    if command -v iptables >/dev/null 2>&1; then
+        echo -e "[ IPTABLES ]" >> "$basedir/firewall_info.txt"
+        iptables -L | tee -a "$basedir/firewall_info.txt"
+    else
+        echo -e "[ NFTABLES (Alternative to IPTABLES) ]" >> "$basedir/firewall_info.txt"
+        nft list ruleset >> "$basedir/firewall_info.txt"
+    fi
+    echo -e "======================================================================================" >> "$basedir/firewall_info.txt"
+    
+    echo -e "[ NETWORK CONNECTIONS ]" >> "$basedir/network_info.txt"
+    if command -v ss >/dev/null 2>&1; then
+        ss -tulnp >> "$basedir/network_info.txt"
+    else
+        netstat -tulnp >> "$basedir/network_info.txt"
+    fi
+    echo -e "======================================================================================" >> "$basedir/network_info.txt"
+    
+    echo -e "[ NETWORK INTERFACES ]" >> "$basedir/network_info.txt"
+    if command -v ip >/dev/null 2>&1; then
+        ip -s link show >> "$basedir/network_info.txt"
+    else
+        ifconfig -a >> "$basedir/network_info.txt"
+    fi
+    echo -e "======================================================================================" >> "$basedir/network_info.txt"
+    
+    echo -e "[ NETWORK ROUTING TABLE ]" >> "$basedir/network_info.txt"
+    if command -v ip >/dev/null 2>&1; then
+        ip route show >> "$basedir/network_info.txt"
+    else
+        route -n >> "$basedir/network_info.txt"
+    fi
+    echo -e "======================================================================================" >> "$basedir/network_info.txt"
+    
+    echo -e "[ ARP TABLE ] " >> "$basedir/network_info.txt"
+    if command -v ip >/dev/null 2>&1; then
+        ip neighbor show >> "$basedir/network_info.txt"
+    else
+        cat /proc/net/arp >> "$basedir/network_info.txt"
+    fi
+    echo -e "======================================================================================" >> "$basedir/network_info.txt"
+    
+    echo "COLLECTING NETWORK INFORMATION... DONE!" | tee -a "$basedir/triageX.txt"
 }
 
 function getDirectoryAndFiles(){
