@@ -1,4 +1,9 @@
-![image](https://github.com/jdangosto/triageX/assets/20812848/db287c23-69da-486f-86ea-e479baf21420)
+# This project has been discontinued, the new version is in https://github.com/PowerForensics/ 
+
+
+
+
+
 
 
 # TriageX - Linux Triage Tool
